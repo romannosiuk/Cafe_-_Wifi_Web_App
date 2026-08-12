@@ -85,6 +85,8 @@ def get_random_cafe():
 
     result = db.session.execute(db.select(Cafe))
     all_cafes = result.scalars().all()
+    if not all_cafes:
+        return jsonify(error={"Not Found": "No cafes in database"}), 404
     random_cafe = random.choice(all_cafes)
     return jsonify(cafe=random_cafe.to_dict())
 
@@ -206,6 +208,8 @@ def random_page():
 
     result = db.session.execute(db.select(Cafe))
     all_cafes = result.scalars().all()
+    if not all_cafes:
+        return render_template("index.html", cafes=[])
     random_cafe = random.choice(all_cafes)
     return render_template("index.html", cafes=[random_cafe])
 
