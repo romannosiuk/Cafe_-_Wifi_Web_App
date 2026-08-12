@@ -22,7 +22,11 @@ class Base(DeclarativeBase):
 
 
 # Connect to Database
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///cafes.db")
+database_url = os.getenv("DATABASE_URL", "sqlite:///cafes.db")
+if database_url.startswith("postgresql://"):
+    database_url = database_url.replace("postgresql://", "postgresql+psycopg://")
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+print(f"🗄️  Database: {database_url[:60]}...")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
