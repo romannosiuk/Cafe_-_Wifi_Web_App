@@ -1,0 +1,106 @@
+<!--Cafe Table-->
+<style>
+    .actions-cell {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .actions-buttons {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+    }
+
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .action-btn-edit {
+        background-color: #ffc107;
+        color: black;
+    }
+
+    .action-btn-edit:hover {
+        background-color: #ffb300;
+        transform: scale(1.1);
+    }
+</style>
+
+<div class="cafes-container">
+    <table class="table table-hover cafe-table">
+        <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Cafe Name</th>
+            <th>Location</th>
+            <th>Hours</th>
+            <th>Coffee Price</th>
+            <th>Maps</th>
+            <th>Amenities</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cafe in cafes %}
+        <tr>
+            <td class="cafe-image-cell">
+                {% if cafe.img_url %}
+                <img src="{{ cafe.img_url }}" alt="{{ cafe.name }}" class="cafe-thumbnail">
+                {% else %}
+                <div class="cafe-thumbnail-placeholder">No Photo</div>
+                {% endif %}
+            </td>
+            <td class="cafe-name-cell">
+                <strong>{{ cafe.name }}</strong>
+            </td>
+            <td>{{ cafe.location }}</td>
+            <td class="hours-cell">
+                <i class="fas fa-clock"></i> {{ cafe.open_hours }}
+            </td>
+            <td class="price-cell">
+                {% if cafe.coffee_price %}
+                {{ cafe.coffee_price }}
+                {% else %}
+                <span class="text-muted">N/A</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if cafe.map_url[:4] == "http" %}
+                <a href="{{ cafe.map_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-map-marker-alt"></i> Maps
+                </a>
+                {% endif %}
+            </td>
+            <td class="amenities-cell">
+                {% if cafe.has_wifi %}<span class="badge badge-info"><i class="fas fa-wifi"></i></span>{% endif %}
+                {% if cafe.has_sockets %}<span class="badge badge-secondary"><i class="fas fa-plug"></i></span>{% endif
+                %}
+                {% if cafe.has_toilet %}<span class="badge badge-success"><i class="fas fa-restroom"></i></span>{% endif
+                %}
+                {% if cafe.pets_allowed %}<span class="badge badge-warning"><i class="fas fa-dog"></i></span>{% endif %}
+                {% if cafe.has_food %}<span class="badge badge-danger"><i class="fas fa-utensils"></i></span>{% endif %}
+                {% if cafe.has_alcohol %}<span class="badge badge-dark"><i class="fas fa-wine-glass"></i></span>{% endif
+                %}
+            </td>
+            <td class="actions-cell">
+                <a href="/update/{{ cafe.id }}" class="action-btn action-btn-edit" title="Edit cafe">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

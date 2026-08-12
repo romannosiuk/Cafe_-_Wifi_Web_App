@@ -1,0 +1,426 @@
+h1 {
+    text-align: center;
+    color: #212529;
+}
+
+.header-section h1 {
+    font-family: 'Southing', serif;
+    font-size: 2.5rem;
+    font-weight: normal;
+}
+
+.filter-search {
+    margin-bottom: 15px;
+}
+
+.filter-search input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.filter-search input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.header-bar {
+    background-color: #667eea;
+    color: white;
+    padding: 20px;
+}
+
+/* Header section with h1 and random button */
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-random {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-random:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.btn-random:active {
+    transform: scale(0.98);
+}
+
+.btn-random i {
+    margin-right: 8px;
+}
+
+/* Layout: filters + cafes side by side, aligned to same top */
+.page-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Filter panel styling */
+#places-filters {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+@media (min-width: 768px) {
+    #places-filters {
+        position: sticky;
+        top: 0;
+        flex: 0 0 25%;
+        max-height: 100vh;
+        overflow-y: auto;
+        border-right: 1px solid #dee2e6;
+    }
+}
+
+/* Filter form styling */
+.filter-form {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.filter-form h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #212529;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-checkbox {
+    margin-bottom: 10px;
+}
+
+.filter-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #495057;
+    margin: 0;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.filter-checkbox label:hover {
+    background-color: #f0f0f0;
+    color: #212529;
+}
+
+.filter-checkbox input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    accent-color: #667eea;
+}
+
+.filter-checkbox i {
+    font-size: 13px;
+    color: #0d6efd;
+    min-width: 14px;
+}
+
+.btn-filter-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-filter-submit:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-filter-reset {
+    width: 100%;
+    background-color: #e9ecef;
+    color: #495057;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-filter-reset:hover {
+    background-color: #dee2e6;
+    color: #212529;
+    text-decoration: none;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filters h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #212529;
+}
+
+/* Filter buttons */
+.btn-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 70px;
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+}
+
+.btn-filter:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.btn-filter.active {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.btn-filter:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-filter i {
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: inherit;
+}
+
+.btn-filter span {
+    font-size: 10px;
+    text-align: center;
+    word-break: break-word;
+    line-height: 1.2;
+    max-height: 24px;
+    overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .page-content {
+        display: block;
+    }
+
+    #places-filters {
+        display: none;
+    }
+}
+
+/* Cafes container and table styling */
+.cafes-container {
+    padding: 20px;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+@media (min-width: 768px) {
+    .cafes-container {
+        padding: 30px;
+    }
+}
+
+.cafe-table {
+    background-color: white;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.cafe-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.cafe-table thead th {
+    padding: 16px 12px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.cafe-table tbody tr {
+    border-bottom: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.cafe-table tbody tr:hover {
+    background-color: #f8f9fa;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.cafe-table tbody td {
+    padding: 14px 12px;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.cafe-image-cell {
+    padding: 8px !important;
+    text-align: center;
+}
+
+.cafe-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    display: block;
+}
+
+.cafe-thumbnail-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-size: 12px;
+    margin: 0 auto;
+}
+
+.cafe-name-cell {
+    font-weight: 600;
+    color: #212529;
+}
+
+.hours-cell {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.hours-cell i {
+    color: #28a745;
+    margin-right: 6px;
+}
+
+.price-cell {
+    font-weight: 600;
+    color: #dc3545;
+}
+
+.amenities-cell {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    font-size: 12px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.badge-info {
+    background-color: #0dcaf0;
+    color: white;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-success {
+    background-color: #198754;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge-dark {
+    background-color: #212529;
+    color: white;
+}
+
+.badge i {
+    font-size: 12px;
+}
+
+/* Button styling */
+.btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+    text-decoration: none;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}

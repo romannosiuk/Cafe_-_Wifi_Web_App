@@ -1,0 +1,92 @@
+<!--Filter Panel-->
+<div class="position-relative col-lg-3 col-md-4 d-md-block" id="places-filters">
+    <form action="/filtered-page" method="GET" class="filter-form">
+        <h3>Quick Filter</h3>
+
+        <div class="filter-search">
+          <input type="text" name="cafe_name" placeholder="Search cafe name..."
+                 value="{{ cafe_name or '' }}">
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="open_now" value="true"
+                       {% if open_now %}checked{% endif %}>
+                <i class="fas fa-clock"></i> Open now
+            </label>
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="has_wifi" value="true"
+                       {% if has_wifi %}checked{% endif %}>
+                <i class="fas fa-wifi"></i> Wi-Fi
+            </label>
+
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="has_sockets" value="true"
+                       {% if has_sockets %}checked{% endif %}>
+                <i class="fas fa-plug"></i> Sockets
+            </label>
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="has_toilet" value="true"
+                       {% if has_toilet %}checked{% endif %}>
+                <i class="fas fa-restroom"></i> WC
+            </label>
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="pets_allowed" value="true"
+                       {% if pets_allowed %}checked{% endif %}>
+                <i class="fas fa-dog"></i> Pets
+            </label>
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="has_food" value="true"
+                       {% if has_food %}checked{% endif %}>
+                <i class="fas fa-utensils"></i> Food
+            </label>
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="has_alcohol" value="true"
+                       {% if has_alcohol %}checked{% endif %}>
+                <i class="fas fa-wine-glass"></i> Alcohol
+            </label>
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="has_ac" value="true"
+                       {% if has_ac %}checked{% endif %}>
+                <i class="fas fa-thermometer-half"></i> A/C
+            </label>
+        </div>
+
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="has_parking" value="true"
+                       {% if has_parking %}checked{% endif %}>
+                <i class="fas fa-car"></i> Parking
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-filter-submit">
+            <i class="fas fa-search"></i> Filter
+        </button>
+
+        <a href="/" class="btn btn-filter-reset">
+            <i class="fas fa-times"></i> Reset
+        </a>
+    </form>
+</div>

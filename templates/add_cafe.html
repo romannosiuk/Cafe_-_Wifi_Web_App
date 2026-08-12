@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if cafe %}Update Cafe{% else %}Add New Cafe{% endif %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .cafe-form-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h5 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #212529;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group input[type="time"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .amenity-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .amenity-checkbox:hover {
+            background-color: #f8f9fa;
+            border-color: #667eea;
+        }
+
+        .amenity-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .amenity-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn-submit {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background-color: #e9ecef;
+            color: #495057;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background-color: #dee2e6;
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-title h1 {
+            color: thistle;
+            margin-bottom: 8px;
+        }
+
+        .form-title p {
+            color: #6c757d;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="cafe-form-container">
+    {% if error %}
+    <div style="background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 12px; border-radius: 4px; margin-bottom: 20px;">
+        <i class="fas fa-exclamation-circle"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="form-title">
+        <h1>
+            {% if cafe %}
+                <i class="fas fa-edit"></i> Update Cafe
+            {% else %}
+                <i class="fas fa-coffee"></i> Add New Cafe
+            {% endif %}
+        </h1>
+        <p>
+            {% if cafe %}
+                Update the cafe details below
+            {% else %}
+                Fill in the details to add a new cafe to our collection
+            {% endif %}
+        </p>
+    </div>
+
+    <form method="POST" action="{% if cafe %}/update/{{ cafe.id }}{% else %}/add{% endif %}">
+        {% if cafe %}
+        <!-- API Key Section (only for update) -->
+        <div class="form-section">
+            <h5>Security</h5>
+            <div class="form-group">
+                <label for="api_key">API Key <span class="required">*</span></label>
+                <input type="password" id="api_key" name="api_key" required placeholder="Enter API Key to update">
+            </div>
+        </div>
+        {% endif %}
+        <!-- Basic Info Section -->
+        <div class="form-section">
+            <h5>Basic Information</h5>
+
+            <div class="form-group">
+                <label for="name">Cafe Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="e.g., The Bike Shed"
+                       value="{{ cafe.name if cafe else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location <span class="required">*</span></label>
+                <input type="text" id="location" name="loc" required placeholder="e.g., Shoreditch"
+                       value="{{ cafe.location if cafe else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="seats">Seats</label>
+                <input type="text" id="seats" name="seats" placeholder="e.g., 0-10, 10-20, 20-30, etc."
+                       value="{{ cafe.seats if cafe else '' }}">
+            </div>
+        </div>
+
+        <!-- URLs Section -->
+        <div class="form-section">
+            <h5>Links & Images</h5>
+
+            <div class="form-group">
+                <label for="map_url">Google Maps URL <span class="required">*</span></label>
+                <input type="url" id="map_url" name="map_url" required placeholder="https://maps.google.com/..."
+                       value="{{ cafe.map_url if cafe else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="img_url">Cafe Image URL <span class="required">*</span></label>
+                <input type="url" id="img_url" name="img_url" required placeholder="https://example.com/cafe.jpg"
+                       value="{{ cafe.img_url if cafe else '' }}">
+            </div>
+        </div>
+
+        <!-- Hours & Price Section -->
+        <div class="form-section">
+            <h5>Hours & Price</h5>
+
+            <div class="form-group">
+                <label for="open_hours">Opening Hours</label>
+                <input type="text" id="open_hours" name="open_hours" placeholder="e.g., 08:00 AM - 06:00 PM"
+                       value="{{ cafe.open_hours if cafe else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="coffee_price">Coffee Price</label>
+                <input type="text" id="coffee_price" name="coffee_price" placeholder="e.g., £2.50"
+                       value="{{ cafe.coffee_price if cafe else '' }}">
+            </div>
+        </div>
+
+        <!-- Amenities Section -->
+        <div class="form-section">
+            <h5>Amenities</h5>
+            <div class="amenities-grid">
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="wifi" name="wifi" value="true"
+                           {% if cafe and cafe.has_wifi %}checked{% endif %}>
+                    <label for="wifi"><i class="fas fa-wifi"></i> Wi-Fi</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="sockets" name="sockets" value="true"
+                           {% if cafe and cafe.has_sockets %}checked{% endif %}>
+                    <label for="sockets"><i class="fas fa-plug"></i> Sockets</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="toilet" name="toilet" value="true"
+                           {% if cafe and cafe.has_toilet %}checked{% endif %}>
+                    <label for="toilet"><i class="fas fa-restroom"></i> WC</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="calls" name="calls" value="true"
+                           {% if cafe and cafe.can_take_calls %}checked{% endif %}>
+                    <label for="calls"><i class="fas fa-phone"></i> Calls</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="pets" name="pets" value="true"
+                           {% if cafe and cafe.pets_allowed %}checked{% endif %}>
+                    <label for="pets"><i class="fas fa-dog"></i> Pets</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="food" name="food" value="true"
+                           {% if cafe and cafe.has_food %}checked{% endif %}>
+                    <label for="food"><i class="fas fa-utensils"></i> Food</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="alcohol" name="alcohol" value="true"
+                           {% if cafe and cafe.has_alcohol %}checked{% endif %}>
+                    <label for="alcohol"><i class="fas fa-wine-glass"></i> Alcohol</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="ac" name="a/c" value="true"
+                           {% if cafe and cafe.has_ac %}checked{% endif %}>
+                    <label for="ac"><i class="fas fa-thermometer-half"></i> A/C</label>
+                </div>
+
+                <div class="amenity-checkbox">
+                    <input type="checkbox" id="parking" name="parking" value="true"
+                           {% if cafe and cafe.has_parking %}checked{% endif %}>
+                    <label for="parking"><i class="fas fa-car"></i> Parking</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button type="submit" class="btn-submit">
+                {% if cafe %}
+                    <i class="fas fa-save"></i> Update Cafe
+                {% else %}
+                    <i class="fas fa-plus"></i> Add Cafe
+                {% endif %}
+            </button>
+            <a href="/" class="btn-cancel">
+                <i class="fas fa-times"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
