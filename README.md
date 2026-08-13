@@ -1,5 +1,7 @@
 # Cafe & Wifi API
 
+**Live Demo**: https://cafe-and-wifi-web-app.onrender.com
+
 A Flask-based web application to discover, browse, and manage cafes with various amenities. Perfect for remote workers
 looking for the ideal workspace with WiFi, power outlets, and good coffee.
 
