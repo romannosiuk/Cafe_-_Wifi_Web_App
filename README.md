@@ -20,7 +20,7 @@ looking for the ideal workspace with WiFi, power outlets, and good coffee.
 
 - **Backend**: Flask 3.0.0
 - **Database**: SQLAlchemy + SQLite (local) / PostgreSQL (production)
-- **Frontend**: HTML5, CSS3, JavaScript
+- **Frontend**: HTML5, CSS3
 - **Deployment**: Render.com with PostgreSQL
 - **Server**: Gunicorn WSGI server
 
